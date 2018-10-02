@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Another React Nested Example</title>
+</head>
+
+<body>
+  <div id="target"></div>
+</body>
+
+<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+
+<script type='text/babel'>
+
+  const simpsonData = 
+  {
+  name: "Orville Simpson",
+  spouse: "Yuma Hickman",
+  children: [
+    {
+      name: "Abraham Simpson",
+      spouse: "Mona",
+      children: [
+        {
+          name: "Homer Simpson",
+          spouse: "Marge Bouvier",
+          children: [
+            {
+              name: "Bart Simpson"
+            },
+            {
+              name: "Lisa Simpson"
+            },
+            {
+              name: "Maggie Simpson"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+  const Parent = props => {
+    return (
+      <div>
+        <h1>Parent: {props.name}</h1>
+        {props.child ? <Child name={props.child} grandChild={props.grandChild}/> : null}
+      </div>
+    );
+  };
+
+  const Child = props => {
+    return (
+      <div>
+        <h2>Child: {props.name}</h2>
+        {props.grandChild ? <GrandChild name={props.grandChild} /> : null}
+      </div>
+    );
+  };
+
+  const GrandChild = props => {
+    return (
+      <div>
+        <h3>Grandchild: {props.name}</h3>
+      </div>
+    );
+  };
+
+  
+  ReactDOM.render(
+    <Parent name={simpsonData.name}
+            child={simpsonData.children[0].name}
+            grandChild={simpsonData.children[0].children[0].name}
+    />, document.getElementById('target'));
+
+</script>
+
+</html>
